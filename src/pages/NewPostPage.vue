@@ -64,12 +64,22 @@ const authStore = useAuthStore();
 
 const submitPost = async() => {
   try {
+  
+    if (!trackInfo.value) {
+      console.error('トラック情報が取得されていません');
+      return;
+    }
+  
     const postData = {
       spotifyUrl: spotifyUrl.value,
       comment: comment.value,
       uid: authStore.currentUID,
       createdAt: serverTimestamp(),
       likes: 0,
+      track: trackInfo.value.name,
+      artist: trackInfo.value.artists[0].name,
+      album: trackInfo.value.album.name,
+      artwork: trackInfo.value.album.images[0].url,
     };
     
     await addDoc(collection(db, 'posts'), postData);
@@ -142,8 +152,7 @@ async function getTrackInfo(trackId) {
   }
 }
 
-//楽曲URL〜情報を画面に表示するまでをひとまとめにする
-
+//楽曲URL〜情報を画面に表示するまでをひとまとめにする。「トラック情報取得」ボタン用
 async function handleSpotifyRequest() {
   extractTrackId();
   if (!trackId.value) {
@@ -152,8 +161,6 @@ async function handleSpotifyRequest() {
   }
   await getTrackInfo(trackId.value);
 }
-
-
 
 //３．レスポンスから必要な情報を取り出し、投稿データに含める
 
