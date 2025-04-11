@@ -1,19 +1,19 @@
 <template>
   <div>
     <h2>新規投稿画面</h2>
-    <p>ここに新規投稿フォームを配置する</p>
-    
+
     <div>
       <form @submit.prevent="submitPost">
         <div>
           <label>Spotify楽曲URL</label>
           <input v-model="spotifyUrl" type="text" placeholder="https://open.spotify〜" />
+        </div>  
           
+        <div>  
           <!--デバッグ用-->
-          <button type="button" @click="extractTrackId">Track IDを取得</button>
-          <p v-if="trackId">Track ID: {{ trackId }}</p>
-          <button type="button" @click="getTrackInfo(trackId)">Track情報を取得</button>
-          
+          <!--<button type="button" @click="extractTrackId">Track IDを取得</button>-->
+          <!--<p v-if="trackId">Track ID: {{ trackId }}</p>-->
+          <button type="button" @click="handleSpotifyRequest">トラック情報を取得</button>
         </div>
         
         <!--楽曲情報表示部分-->
@@ -34,7 +34,7 @@
         <button type="submit">投稿</button>
         
         <!--デバッグ用-->
-        <button type="button" @click="getSpotifyAccessToken">アクセストークンを取得</button>
+        <!--<button type="button" @click="getSpotifyAccessToken">アクセストークンを取得</button>-->
 
       </form>
     </div>
@@ -140,6 +140,17 @@ async function getTrackInfo(trackId) {
   } catch (error) {
     console.error('トラック情報取得失敗', error);
   }
+}
+
+//楽曲URL〜情報を画面に表示するまでをひとまとめにする
+
+async function handleSpotifyRequest() {
+  extractTrackId();
+  if (!trackId.value) {
+    console.error('トラックIDが取得できませんでした');
+    return;
+  }
+  await getTrackInfo(trackId.value);
 }
 
 
