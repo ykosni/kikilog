@@ -16,8 +16,8 @@ const { currentUID } = storeToRefs(authStore);
 
     <!-- ログインしている時だけを表示 -->
     <div v-if="currentUID">
-      <RouterLink to="/" class="btn btn-neutral">ホーム</RouterLink>
-      <RouterLink to="/new" class="btn btn-neutral">新規投稿</RouterLink>
+      <RouterLink to="/" class="btn btn-neutral">　ホーム　</RouterLink>
+      <RouterLink to="/new" class="btn btn-neutral">　新規投稿　</RouterLink>
       <Logout />
     </div>
   </header>

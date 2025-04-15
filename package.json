@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tabler/icons-vue": "^2.46.0",
+    "date-fns": "^4.1.0",
     "firebase": "^10.7.2",
     "pinia": "^2.1.7",
     "vue": "^3.5.13",

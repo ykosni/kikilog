@@ -1,27 +1,37 @@
+<script setup>
+import { computed } from 'vue';
+import { format } from 'date-fns'; //日付を文字列にするライブラリ
+
+const props = defineProps({
+  post: {
+    type: Object,
+    required: true,
+  },
+});
+
+// Firebase Timestampを日時に変換する
+const formattedDate = computed(() => {
+  const date = props.post.createdAt.toDate(); 
+  return format(date, 'yyyy/MM/dd HH:mm');
+});
+
+</script>
+
+
 <template>
   <div class="post-card">
-    <img :src="artwork" alt="Album Artwork" />
-    <h3>{{ title }}</h3>
-    <p>{{ artist }}</p>
-    <p>{{ comment }}</p>
+    <img :src="post.artwork" alt="アートワーク" class="artwork" />
+
+    <h3>{{ post.track || 'タイトル不明' }}</h3>
+    <p>artist/program：{{ post.artist || 'なし' }}</p>
+    <p>album：{{ post.album  || 'なし' }} </p>
+    <p>コメント：{{ post.comment  || 'コメントなし' }}</p>
+    <p>❤️ {{ post.likes }}</p>
+    <p>投稿日時：{{ formattedDate }}</p>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    artwork: String,
-    title: String,
-    artist: String,
-    comment: String,
-  },
-};
-</script>
 
 <style scoped>
-.post-card {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 16px;
-}
+
 </style>

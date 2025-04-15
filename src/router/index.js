@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage.vue'
 import RegisterPage from '../pages/RegisterPage.vue'
 import NewPostPage from '../pages/NewPostPage.vue'
 
+
 const routes = [
   { path: '/', component: HomePage },
   { path: '/login', component: LoginPage },
