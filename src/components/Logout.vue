@@ -17,7 +17,7 @@ const logOut = () => {
 </script>
 
 <template>
-  <div class="mt-4">
+  <div>
     <button class="btn btn-neutral" @click="logOut">ログアウト</button>
   </div>
 </template>

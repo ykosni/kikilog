@@ -162,9 +162,6 @@ async function handleSpotifyRequest() {
   await getTrackInfo(trackId.value);
 }
 
-//３．レスポンスから必要な情報を取り出し、投稿データに含める
-
-//４．取り出した情報を画面に表示
 
 
 

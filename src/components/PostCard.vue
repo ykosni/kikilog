@@ -19,11 +19,11 @@ const formattedDate = computed(() => {
 
 
 <template>
-  <div class="post-card">
-    <img :src="post.artwork" alt="アートワーク" class="artwork" />
+  <div>
+    <img :src="post.artwork" alt="アートワーク" width="50%" height="50%"/>
 
     <h3>{{ post.track || 'タイトル不明' }}</h3>
-    <p>artist/program：{{ post.artist || 'なし' }}</p>
+    <p>artist：{{ post.artist || 'なし' }}</p>
     <p>album：{{ post.album  || 'なし' }} </p>
     <p>コメント：{{ post.comment  || 'コメントなし' }}</p>
     <p>❤️ {{ post.likes }}</p>
