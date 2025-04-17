@@ -3,7 +3,10 @@ import { ref, onMounted, inject } from 'vue';
 import { getDocs, collection, query, orderBy, startAfter, limit } from 'firebase/firestore';
 import PostCard from '../components/PostCard.vue';
 
-//main.jsでprovideされたdbを受け取る
+//ログイン状態
+const currentUser = inject('currentUser');
+
+//main.jsでprovideされたdbとcurrentUserを受け取る
 const db = inject('db');
 
 //ページネーション
@@ -35,7 +38,10 @@ const fetchData = async () => {
   }
 
   const snapshot = await getDocs(q);
-  const newPosts = snapshot.docs.map(doc => doc.data()); //各ドキュメントの中身を取り出す
+  const newPosts = snapshot.docs.map(doc => ({
+    id: doc.id,         // ← ここでidを追加
+    ...doc.data(),      // その他のデータ
+  })); //各ドキュメントの中身を取り出す
   posts.value = [...posts.value, ...newPosts];  //もとの配列に新しい配列を追加する（「もっと見る」）
 
   //データを全て表示したら、「もっと見る」ボタンを非表示にする
@@ -63,11 +69,12 @@ fetchData();
   
   <div>
     
-    <div v-if="posts.length > 0">
+    <div v-if="posts.length > 0 && currentUser">
       <PostCard
       v-for="post in posts"
       :key="post.id"
       :post="post"
+      :currentUser="currentUser"
       />
     </div>
 
