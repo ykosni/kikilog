@@ -1,6 +1,6 @@
 <script setup>
   
-import { ref, onMounted, inject } from 'vue';
+import { ref, onMounted, inject, onUnmounted } from 'vue';
 import { getDoc, doc, setDoc, deleteDoc, serverTimestamp, onSnapshot, collection } from 'firebase/firestore';
 
 //PostCard.vueからデータを受け取る
@@ -71,8 +71,6 @@ onSnapshot(likesCollection, (snapshot) => {  //リアルタイムで監視
   likeCount.value = snapshot.size;　//コレクション内のドキュメント数を取得
 //  console.log("イイね数：", likeCount.value);
 });
-
-
 
 </script>
 
