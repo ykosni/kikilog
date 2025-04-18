@@ -17,7 +17,7 @@ const props = defineProps({
 });
 
 // （デバッグ） ここで post の中身を確認！
-console.log("post in PostCard:", props.post);
+//console.log("post in PostCard:", props.post);
 
 // Firebase Timestampを日時に変換する
 const formattedDate = computed(() => {
@@ -42,6 +42,7 @@ const currentUser = inject('currentUser');
     
     <div>
       <LikeButton :postId="post.id" :userId="currentUser.uid" />
+      
     </div>
     
     <p>投稿日時：{{ formattedDate }}</p>

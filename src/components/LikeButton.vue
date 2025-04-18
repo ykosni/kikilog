@@ -1,7 +1,7 @@
 <script setup>
   
 import { ref, onMounted, inject } from 'vue';
-import { getDoc, doc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { getDoc, doc, setDoc, deleteDoc, serverTimestamp, onSnapshot, collection } from 'firebase/firestore';
 
 //PostCard.vueからデータを受け取る
 const props = defineProps({
@@ -64,6 +64,14 @@ const toggleLike = async () => {
   }
 };
 
+//イイね数を表示させる機能
+const likeCount = ref(0);
+const likesCollection = collection(db, "posts", props.postId, "likes"); //対象のコレクションを指定
+onSnapshot(likesCollection, (snapshot) => {  //リアルタイムで監視
+  likeCount.value = snapshot.size;　//コレクション内のドキュメント数を取得
+//  console.log("イイね数：", likeCount.value);
+});
+
 
 
 </script>
@@ -73,4 +81,5 @@ const toggleLike = async () => {
     <!--isLikedがtrueなら♥、falseなら♡-->
     {{ isLiked ? '♥' : '♡' }}
   </button>
+  {{ likeCount }}
 </template>
