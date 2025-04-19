@@ -18,12 +18,13 @@ const { currentUID } = storeToRefs(authStore);
     <div v-if="currentUID">
       <RouterLink to="/" class="btn btn-neutral">　ホーム　</RouterLink>
       <RouterLink to="/new" class="btn btn-neutral">　新規投稿　</RouterLink>
+      <RouterLink to="/profile" class="btn btn-neutral">　プロフィール　</RouterLink>
       <Logout />
     </div>
   </header>
 </template>
 
-<style scoped>
+<style>
 header {
   background-color: #333;
   color: white;

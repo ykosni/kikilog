@@ -5,6 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { createPinia } from 'pinia'
+import './assets/main.css'
 
 
 // Your web app's Firebase configuration
