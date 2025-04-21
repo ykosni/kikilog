@@ -1,6 +1,6 @@
 <script setup>
 import { computed,inject } from 'vue';
-import { format } from 'date-fns'; //日付を文字列にするライブラリ
+import { formatDate } from '../utils/date'; //日付を文字列にする共通関数
 import LikeButton from './LikeButton.vue';
 
 
@@ -21,8 +21,7 @@ const props = defineProps({
 
 // Firebase Timestampを日時に変換する
 const formattedDate = computed(() => {
-  const date = props.post.createdAt.toDate(); 
-  return format(date, 'yyyy/MM/dd');
+  return formatDate(props.post.createdAt);
 });
 
 //ログインユーザー
