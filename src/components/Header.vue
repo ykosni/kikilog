@@ -14,7 +14,7 @@ const { currentUID } = storeToRefs(authStore);
   <header class="flex justify-between items-center p-2">
     <RouterLink to="/">
       <h1 class="text-4xl font-black flex items-center gap-2 transition-transform duration-200 ease-out active:scale-95" style="color: #1ed760;">
-        <Headphones class="w-9 h-9" :stroke-width="5" />聴きログ
+        <Headphones class="w-9 h-9" :stroke-width="4" />聴きログ
       </h1>
     </RouterLink>
 
