@@ -11,14 +11,24 @@ const { currentUID } = storeToRefs(authStore);
 </script>
 
 <template>
-  <header class="flex justify-between items-center px-4 py-2">
-    <h1 class="text-3xl font-bold text-white">聴きログ</h1>
+  <header class="flex justify-between items-center p-2">
+    <RouterLink to="/">
+      <h1 class="text-4xl font-black flex items-center gap-2 transition-transform duration-200 ease-out active:scale-95" style="color: #1ed760;">
+        <Headphones class="w-9 h-9" :stroke-width="5" />聴きログ
+      </h1>
+    </RouterLink>
 
     <!-- ログインしている時だけを表示 -->
-    <div v-if="currentUID">
-      <RouterLink to="/" class="btn btn-neutral">　ホーム　</RouterLink>
-      <RouterLink to="/new" class="btn btn-neutral">　新規投稿　</RouterLink>
-      <RouterLink to="/profile" class="btn btn-neutral">　プロフィール　</RouterLink>
+    <div v-if="currentUID" class="flex justify-between items-center p-2 gap-3">
+      <RouterLink to="/">
+        <House class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" stroke="#1ed760" />
+      </RouterLink>
+      <RouterLink to="/new">
+        <CirclePlus class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" stroke="#1ed760"/>
+      </RouterLink>
+      <RouterLink to="/profile">
+        <User class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" stroke="#1ed760"/>
+      </RouterLink>
       <Logout />
     </div>
   </header>
@@ -26,7 +36,6 @@ const { currentUID } = storeToRefs(authStore);
 
 <style>
 header {
-  background-color: #333;
-  color: white;
+  background-color: #121212;
 }
 </style>

@@ -37,6 +37,9 @@ onAuthStateChanged(auth, (user) => {
 
 
 <template>
+  
+  <div class="bg-[#121212] text-[#e5e5e5] min-h-screen">
+  
     <!--ログイン問わず表示する-->
     <Header />
 
@@ -55,19 +58,22 @@ onAuthStateChanged(auth, (user) => {
       
       <div>
         <h2>会員登録をして、あなたも聴きログを残そう！</h2>
-        <HomePage />
       </div>
     </div>
 
     <!--ログイン済で表示    -->
     <div v-else>
-      <p>こんにちは、{{ userName }}さん！</p>
+      <p class="p-2 gap-1 flex justify-end items-center text-right">
+        <User class="w-5 h-5" :stroke-width="3" />
+        {{ userName }}
+      </p>
       <router-view />
     </div>
-    
+  
+  </div>
+  
 </template>
 
 
 <style scoped>
-/* あとからスタイルを追加 */
 </style>

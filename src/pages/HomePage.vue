@@ -61,15 +61,16 @@ fetchData();
 
 <template>
   
-  <div>
+  <div class="p-2">
     <h2>タイムライン</h2>
   </div>
   
 
   
-  <div>
+  <div class="p-2">
     
-    <div v-if="posts.length > 0 && currentUser">
+    <div v-if="posts.length > 0 && currentUser"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <PostCard
       v-for="post in posts"
       :key="post.id"
@@ -78,10 +79,23 @@ fetchData();
       />
     </div>
 
-    <button v-if="!reachedEnd" @click="fetchData" :disabled="loading">
-      {{ loading ? "読み込み中..." : "もっと見る" }}
-    </button>
-    <p v-else>投稿は以上です</p>
+<!-- ５件以上データがあれば「もっと見る」 -->
+    <template v-if="!reachedEnd">
+      <div class="flex justify-center my-6">
+        <button
+          @click="fetchData"
+          :disabled="loading"
+          class="bg-[#1ed760] text-white font-semibold py-2 px-6 rounded-full shadow-md hover:bg-[#1ed760]/90 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ loading ? "読み込み中..." : "もっと見る" }}
+        </button>
+      </div>
+    </template>
+
+    <!-- 投稿データを全て表示したら -->
+    <template v-else>
+      <p class="text-center text-sm text-gray-500 my-6">投稿は以上です</p>
+    </template>
     
   </div>
   

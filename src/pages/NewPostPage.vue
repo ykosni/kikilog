@@ -1,47 +1,63 @@
 <template>
-  <div>
-    <h2>新規投稿画面</h2>
+  <div class="min-h-screen bg-[#121212] text-gray-100 px-4 py-8 flex justify-center">
+    <div class="w-full max-w-xl bg-gray-900 p-6 rounded-2xl shadow-md">
+      <h2 class="text-2xl font-black text-[#1ed760] mb-6 text-center">新規投稿</h2>
 
-    <div>
-      <form @submit.prevent="submitPost">
+      <form @submit.prevent="submitPost" class="space-y-6">
         <div>
-          <label>Spotify楽曲URL</label>
-          <input v-model="spotifyUrl" type="text" placeholder="https://open.spotify〜" />
-        </div>  
-          
-        <div>  
+          <label class="text-gray-100 font-bold mb-4 flex items-center gap-2">
+            <Link2 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
+            Spotify楽曲URL</label>
+          <input v-model="spotifyUrl" type="text" placeholder="https://open.spotify.com/〜"
+            class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
+        </div>
+
+        <div class="text-center">
           <!--デバッグ用-->
           <!--<button type="button" @click="extractTrackId">Track IDを取得</button>-->
           <!--<p v-if="trackId">Track ID: {{ trackId }}</p>-->
-          <button type="button" @click="handleSpotifyRequest">トラック情報を取得</button>
+          <button type="button" @click="handleSpotifyRequest"
+            class="bg-[#1ed760] text-sm text-black font-semibold px-6 py-2 rounded-lg hover:bg-[#1db954] transition-transform hover:scale-105 active:scale-95">
+            トラック情報を取得
+          </button>
         </div>
-        
-        <!--楽曲情報表示部分-->
-        <div v-if="trackInfo">
-          <p>曲名：<strong> {{ trackInfo.name }}</strong></p>
-          <p>アーティスト：<strong>{{ trackInfo.artists[0].name }}</strong></p>
-          <p>アルバム：{{ trackInfo.album.name }}</p>
-          <img :src="trackInfo.album.images[0].url" alt="アートワーク" style="width: 400px; " />
-        </div>
-        
-        
-        
-        <div>
-          <label>コメント</label>
-          <textarea v-model="comment" rows="4" placeholder="聴きどころ等"></textarea>
-        </div>
-        
-        <button type="submit">投稿</button>
-        
-        <!--デバッグ用-->
-        <!--<button type="button" @click="getSpotifyAccessToken">アクセストークンを取得</button>-->
 
+        <!--楽曲情報-->
+        <div v-if="trackInfo" class="bg-gray-800 p-4 rounded-lg text-sm space-y-1">
+          <p class="text-gray-100 font-bold mb-2 flex items-center gap-2">
+            <Music class="w-6 h-6 text-[#1ed760]" :stroke-width="3"/> {{ trackInfo.name }}
+          </p>          
+          
+          
+          
+          <p class="text-gray-100 mb-2 flex items-center gap-2">
+            <UserRound class="w-6 h-6 text-[#1ed760]" :stroke-width="3"/> {{ trackInfo.artists[0].name }}
+          </p>
+          <p class="text-gray-100 mb-2 flex items-center gap-2">
+            <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> {{ trackInfo.album.name }}
+          </p>
+          <img :src="trackInfo.album.images[0].url" alt="アートワーク" class="rounded-xl mt-2 w-full" />
+        </div>
+
+        <div>
+          <label class="text-gray-100 mb-4 font-bold flex items-center gap-2">
+            <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> コメント
+          </label>
+          <textarea v-model="comment" rows="4" placeholder="曲の解説、聴きどころ、好きな歌詞、等"
+            class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760] resize-none"></textarea>
+        </div>
+
+        <div class="text-center">
+          <button type="submit"
+            class="bg-[#1ed760] text-black text-xl font-bold px-6 py-2 rounded-lg hover:bg-[#1db954] transition-transform hover:scale-105 active:scale-95">
+            投稿する
+          </button>
+        </div>
       </form>
     </div>
-    
-    
   </div>
 </template>
+
 
 
 <script setup>

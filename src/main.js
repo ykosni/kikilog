@@ -6,6 +6,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { createPinia } from 'pinia'
 import './assets/main.css'
+import * as lucide from 'lucide-vue-next'
 
 
 // Your web app's Firebase configuration
@@ -30,6 +31,11 @@ const authState = { currentUser: null };
 // Vueアプリケーションを作成
 const app = createApp(App);
 
+// Lucideのアイコンをすべてグローバル登録
+Object.entries(lucide).forEach(([name, component]) => {
+  app.component(name, component)
+})
+
 app.use(router);
 app.use(pn);
 app.provide('db', db);
@@ -43,3 +49,4 @@ onAuthStateChanged(auth, (user) => {
   console.log("認証状態変更", user ? "ログイン中" : "ログアウト");
   app.provide('currentUser', user);
 });
+

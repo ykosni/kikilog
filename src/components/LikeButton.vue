@@ -75,9 +75,16 @@ onSnapshot(likesCollection, (snapshot) => {  //リアルタイムで監視
 </script>
 
 <template>
-  <button @click="toggleLike">
-    <!--isLikedがtrueなら♥、falseなら♡-->
-    {{ isLiked ? '♥' : '♡' }}
-  </button>
-  {{ likeCount }}
+  <div class="flex items-center gap-1">
+    <button @click="toggleLike"
+            class="text-red-500 transition-transform duration-400 ease-out active:scale-90 hover:scale-125 ">
+      <!-- isLikedがtrueなら塗りつぶし、falseならアウトライン -->
+      <Heart
+        class="w-6 h-6"
+        :stroke-width="isLiked ? 1.5 : 2"
+        :fill="isLiked ? 'currentColor' : 'none'"
+      />
+    </button>
+    <span class="text-m font-bold text-gray-800">{{ likeCount }}</span>
+  </div>
 </template>

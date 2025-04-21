@@ -22,7 +22,7 @@ const props = defineProps({
 // Firebase Timestampを日時に変換する
 const formattedDate = computed(() => {
   const date = props.post.createdAt.toDate(); 
-  return format(date, 'yyyy/MM/dd HH:mm');
+  return format(date, 'yyyy/MM/dd');
 });
 
 //ログインユーザー
@@ -32,20 +32,34 @@ const currentUser = inject('currentUser');
 
 
 <template>
-  <div>
-    <img :src="post.artwork" alt="アートワーク" width="50%" height="50%"/>
+  <div class="bg-gray-200 rounded-2xl shadow-md p-8 hover:shadow-lg transition-shadow duration-300">
+    <img :src="post.artwork" alt="アートワーク" class="rounded-xl object-cover" />
 
-    <h3>{{ post.track || 'タイトル不明' }}</h3>
-    <p>artist：{{ post.artist || 'なし' }}</p>
-    <p>album：{{ post.album  || 'なし' }} </p>
-    <p>コメント：{{ post.comment  || 'コメントなし' }}</p>
+    <p class="text-xl text-center font-black text-gray-800 mb-4">{{ post.track || 'タイトル不明' }}</p>
     
-    <div>
-      <LikeButton :postId="post.id" :userId="currentUser.uid" />
+    
+    <p class="text-gray-800 font-bold mb-2 flex items-center gap-2">
+      <UserRound class="w-6 h-6 text-[#1ed760]" :stroke-width="3"/>
+      {{ post.artist || 'なし' }}
+    </p>
+    
+    <p class="text-gray-600 mb-2 flex items-center gap-2">
+      <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
+      {{ post.album  || 'なし' }} 
+    </p>
       
+      
+    <p class="text-gray-600 mb-2 flex items-center gap-2">
+      <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
+      {{ post.comment  || 'コメントなし' }}
+    </p>
+    
+    <div class="flex justify-between items-center mt-4">
+      <LikeButton :postId="post.id" :userId="currentUser.uid" />
+      <span class="text-xs text-gray-400">投稿日時：{{ formattedDate }}</span>
     </div>
     
-    <p>投稿日時：{{ formattedDate }}</p>
+
   </div>
 </template>
 
