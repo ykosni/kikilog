@@ -39,7 +39,7 @@ const currentUser = inject('currentUser');
     
     
     <p class="text-gray-800 font-bold mb-2 flex items-center gap-2">
-      <UserRound class="w-6 h-6 text-[#1ed760]" :stroke-width="3"/>
+      <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
       {{ post.artist || 'なし' }}
     </p>
     

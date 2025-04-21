@@ -63,7 +63,7 @@ onAuthStateChanged(auth, (user) => {
 
     <!--ログイン済で表示    -->
     <div v-else>
-      <p class="p-2 gap-1 flex justify-end items-center text-right">
+      <p class="p-2 gap-1 flex justify-end items-center text-right text-gray-400">
         <User class="w-5 h-5" :stroke-width="3" />
         {{ userName }}
       </p>

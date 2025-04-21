@@ -1,15 +1,15 @@
 <template>
   <div class="min-h-screen bg-[#121212] text-gray-100 px-4 py-8 flex justify-center">
-    <div class="w-full max-w-xl bg-gray-900 p-6 rounded-2xl shadow-md">
+    <div class="w-full max-w-xl bg-[#1a1a1a] p-6 rounded-2xl shadow-md">
       <h2 class="text-2xl font-black text-[#1ed760] mb-6 text-center">新規投稿</h2>
 
       <form @submit.prevent="submitPost" class="space-y-6">
         <div>
-          <label class="text-gray-100 font-bold mb-4 flex items-center gap-2">
+          <label class="text-gray-100 text-lg font-bold mb-4 flex items-center gap-2">
             <Link2 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
             Spotify楽曲URL</label>
           <input v-model="spotifyUrl" type="text" placeholder="https://open.spotify.com/〜"
-            class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
+            class="w-full bg-[#2a2a2a] border border-[#4a4a4a] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
         </div>
 
         <div class="text-center">
@@ -23,28 +23,29 @@
         </div>
 
         <!--楽曲情報-->
-        <div v-if="trackInfo" class="bg-gray-800 p-4 rounded-lg text-sm space-y-1">
-          <p class="text-gray-100 font-bold mb-2 flex items-center gap-2">
-            <Music class="w-6 h-6 text-[#1ed760]" :stroke-width="3"/> {{ trackInfo.name }}
-          </p>          
-          
-          
-          
-          <p class="text-gray-100 mb-2 flex items-center gap-2">
-            <UserRound class="w-6 h-6 text-[#1ed760]" :stroke-width="3"/> {{ trackInfo.artists[0].name }}
-          </p>
-          <p class="text-gray-100 mb-2 flex items-center gap-2">
-            <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> {{ trackInfo.album.name }}
-          </p>
-          <img :src="trackInfo.album.images[0].url" alt="アートワーク" class="rounded-xl mt-2 w-full" />
+        <div v-if="trackInfo" class="bg-[#2a2a2a] p-4 rounded-lg text-sm sm:text-sm md:text-xl lg:text-xl flex w-full items-center">
+          <div class="w-1/3 p-4">
+            <img :src="trackInfo.album.images[0].url" alt="アートワーク" class="rounded-xl" />
+          </div>
+          <div class="w-2/3 p-4">
+            <p class="text-gray-100 font-bold mb-4 flex items-center gap-2">
+              <Music class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> {{ trackInfo.name }}
+            </p>          
+            <p class="text-gray-100 mb-4 flex items-center gap-2">
+              <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> {{ trackInfo.artists[0].name }}
+            </p>
+            <p class="text-gray-100 flex items-center gap-2">
+              <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> {{ trackInfo.album.name }}
+            </p>
+          </div>
         </div>
 
         <div>
-          <label class="text-gray-100 mb-4 font-bold flex items-center gap-2">
+          <label class="text-gray-100 text-lg mb-4 font-bold flex items-center gap-2">
             <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> コメント
           </label>
           <textarea v-model="comment" rows="4" placeholder="曲の解説、聴きどころ、好きな歌詞、等"
-            class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760] resize-none"></textarea>
+            class="w-full bg-[#2a2a2a] border border-[#4a4a4a] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760] resize-none"></textarea>
         </div>
 
         <div class="text-center">
