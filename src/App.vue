@@ -81,15 +81,13 @@ onMounted(() => {
       
       <!--未ログイン状態で表示-->
       <div v-else-if="authStore.currentUID === ''">
-        <div>
-          ログイン/会員登録 をしてください
-          <LoginPage />
-          <RegisterPage />
-        </div>
-        
-        <div>
-          <h2>会員登録をして、あなたも聴きログを残そう！</h2>
-        </div>
+        <p class="font-black text-center text-2xl p-10">
+          会員登録をして、あなたも聴きログを残そう！
+        </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-10">
+            <div class="w-full sm:w-1/2 max-w-md"> <LoginPage /> </div>
+            <div class="w-full sm:w-1/2 max-w-md"> <RegisterPage /> </div>
+          </div>
       </div>
   
       <!--ログイン済で表示    -->
