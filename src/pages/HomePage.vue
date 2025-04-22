@@ -62,12 +62,6 @@ fetchData();
 <template>
   
   <div class="p-2">
-    <h2>タイムライン</h2>
-  </div>
-  
-
-  
-  <div class="p-2">
     
     <div v-if="posts.length > 0 && currentUser"
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

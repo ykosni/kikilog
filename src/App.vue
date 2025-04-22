@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage.vue';
 import NewPostPage from './pages/NewPostPage.vue';
 import Logout from './components/Logout.vue';
 import { ref, onMounted } from 'vue';
+import FooterNav from './components/FooterNav.vue';
 
 
 import { useAuthStore } from './stores/auth';
@@ -47,6 +48,7 @@ onMounted(() => {
     showSplash.value = false
   }, 2500) // 表示後2.5秒で非表示（RouterView 表示）
 });
+
 
 </script>
 
@@ -97,6 +99,12 @@ onMounted(() => {
           {{ userName }}
         </p>
         <router-view />
+        
+        <!--スマホの場合のみフッター表示-->
+        <FooterNav :currentUID="authStore.currentUID" />
+
+        
+        
       </div>
     </div>
   </div>

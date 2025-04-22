@@ -3,6 +3,7 @@ import Logout from './Logout.vue';
 import { useAuthStore } from '../stores/auth';
 import { storeToRefs } from 'pinia';
 import { RouterLink } from 'vue-router';
+import NavLinks from './NavLinks.vue';
 
 
 // authStore の currentUID をリアクティブに参照
@@ -19,17 +20,8 @@ const { currentUID } = storeToRefs(authStore);
     </RouterLink>
 
     <!-- ログインしている時だけを表示 -->
-    <div v-if="currentUID" class="flex justify-between items-center p-2 gap-3">
-      <RouterLink to="/">
-        <House class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" stroke="#1ed760" />
-      </RouterLink>
-      <RouterLink to="/new">
-        <CirclePlus class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" stroke="#1ed760"/>
-      </RouterLink>
-      <RouterLink to="/profile">
-        <User class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" stroke="#1ed760"/>
-      </RouterLink>
-      <Logout />
+    <div v-if="currentUID" class="flex justify-between items-center hidden sm:flex">
+      <NavLinks />
     </div>
   </header>
 </template>
