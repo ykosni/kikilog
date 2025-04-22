@@ -3,6 +3,7 @@ import { computed,inject } from 'vue';
 import { formatDate } from '../utils/date'; //日付を文字列にする共通関数
 import LikeButton from './LikeButton.vue';
 import { ref } from 'vue';
+import ExpandableComment from './ExpandableComment.vue';
 
 
 //HomePage.vue（親）からデータを受け取る準備
@@ -36,15 +37,15 @@ const togglePlayer = () => {
 const spotifyEmbedUrl = computed(() => {
   if (!props.post || !props.post.spotifyUrl) return ''
 
-  // URLからtrackIdだけ取り出す
-  const match = props.post.spotifyUrl.match(/track\/([a-zA-Z0-9]+)/)
-  const trackId = match ? match[1] : null
+// URLからtrackIdだけ取り出す
+const match = props.post.spotifyUrl.match(/track\/([a-zA-Z0-9]+)/)
+const trackId = match ? match[1] : null
 
-  if (!trackId) return ''
+if (!trackId) return ''
 
-  const url = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`
-  console.log('Spotify URL:', url)
-  return url
+const url = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`
+console.log('Spotify URL:', url)
+return url
 })
 
 
@@ -54,7 +55,7 @@ const spotifyEmbedUrl = computed(() => {
 <template>
   <div class="bg-gray-200 rounded-2xl shadow-md p-8 hover:shadow-lg transition-shadow duration-300">
     
-    <div class="relative w-full max-w-sm group">
+    <div class="relative w-full group">
       <!-- アートワーク画像 -->
         <img :src="post.artwork" alt="アートワーク" class="rounded-xl shadow-md" />
       <!-- 試聴ボタン（左下にふわっと表示）-->
@@ -72,20 +73,20 @@ const spotifyEmbedUrl = computed(() => {
     <p class="text-xl text-center font-black text-gray-800 mb-4">{{ post.track || 'タイトル不明' }}</p>
     
     
-    <p class="text-gray-800 font-bold mb-2 flex items-center gap-2">
+    <p class="text-gray-800 font-bold mb-2 flex items-start gap-2">
       <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
       {{ post.artist || 'なし' }}
     </p>
     
-    <p class="text-gray-600 mb-2 flex items-center gap-2">
+    <p class="text-gray-600 mb-2 flex items-start gap-2">
       <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
       {{ post.album  || 'なし' }} 
     </p>
       
       
-    <p class="text-gray-600 mb-2 flex items-center gap-2">
+    <p class="text-gray-600 mb-2 flex items-start gap-2">
       <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
-      {{ post.comment  || 'コメントなし' }}
+      <ExpandableComment :comment="post.comment || 'コメントなし'" />
     </p>
     
     <div class="flex justify-between items-center mt-4">

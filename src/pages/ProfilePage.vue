@@ -4,12 +4,29 @@ import { inject, ref, onMounted } from 'vue'
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
 import { formatDate } from '../utils/date'
 import LikeButton from '../components/LikeButton.vue';
+import ExpandableComment from '../components/ExpandableComment.vue'
 
-const db = inject('db')
-const currentUser = inject('currentUser')
 
-const posts = ref([])
+const db = inject('db');
+const currentUser = inject('currentUser');
 
+const posts = ref([]);
+
+//試聴ボタン
+const visiblePlayerId = ref(null);
+
+//トグルで、同時に複数再生されないようにする
+const togglePlayer = (postId) => {
+  if (visiblePlayerId.value === postId) {
+      // 今開いてるプレイヤーを閉じる（同じIDが2回押されたから）
+      visiblePlayerId.value = null
+    } else {
+      // 押された投稿IDを再生対象にする（別の投稿を再生したいとき）
+      visiblePlayerId.value = postId
+    }
+}
+
+//自分の投稿を取得
 const fetchUserPosts = async () => {
   if (!currentUser) return
 
@@ -29,51 +46,73 @@ const fetchUserPosts = async () => {
 
 onMounted(() => {
   fetchUserPosts()
-})
+});
 
 </script>
 
 
 
 <template>
-  <div class="p-4">
+  <div class="p-2">
     <h2 class="text-2xl font-bold mb-4">プロフィール</h2>
 
-    <div v-if="posts.length" class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-5">
+    <div v-if="posts.length" class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
       <div
         v-for="post in posts"
         :key="post.id"
         class="bg-gray-200 rounded-2xl shadow-md p-4 hover:shadow-lg transition-shadow duration-300"
       >
-         <img
-          :src="post.artwork"
-          alt="アートワーク"
-          class="rounded-xl object-cover aspect-square w-full mb-3"
-        />
+        <!--アートワークの中に試聴ボタン-->
+        <div class="relative group">
+          <img
+            :src="post.artwork"
+            alt="アートワーク"
+            class="rounded-xl object-cover aspect-square w-full mb-3"
+          />
+          <button
+            @click="togglePlayer(post.id)"
+            class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-8 h-8 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
+          >
+            <p class="text-black">▶</p>
+          </button>
+        </div>
         
         <p class="text-center font-black text-gray-800 mb-3">
           {{ post.track || 'タイトル不明' }}
         </p>
         
-        <p class="text-gray-800 font-bold mb-2 flex items-center gap-2">
+        <p class="text-gray-800 font-bold flex items-start gap-2">
           <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3" />
           {{ post.artist || 'なし' }}
         </p>
         
-        <p class="text-gray-600 mb-2 flex items-center gap-2">
+        <p class="text-gray-600 flex items-start gap-2">
           <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3" />
           {{ post.album || 'なし' }}
         </p>
         
-        <p class="text-sm text-gray-600 mb-2 flex items-center gap-2">
+        <p class="text-sm text-gray-600 flex items-start gap-2">
           <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
-          {{ post.comment  || 'コメントなし' }}
+          <ExpandableComment :comment="post.comment || 'コメントなし'" />
         </p>
         
         <div class="flex justify-between items-center mt-4">
-      <LikeButton :postId="post.id" :userId="currentUser.uid" />
-      <span class="text-xs text-gray-400">{{ formatDate(post.createdAt) }}</span>
-    </div>
+          <LikeButton :postId="post.id" :userId="currentUser.uid" />
+          <span class="text-xs text-gray-400">{{ formatDate(post.createdAt) }}</span>
+        </div>
+        
+        <div>
+          <transition name="fade">
+            <iframe
+              v-if="visiblePlayerId === post.id"
+              class="mt-3 w-full h-20 rounded-lg"
+              :src="`${post.spotifyUrl.replace('track/', 'embed/track/')}?utm_source=generator&autoplay=1`"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </transition>
+        </div>
 
       </div>
     </div>
@@ -81,3 +120,12 @@ onMounted(() => {
     <p v-else class="text-gray-300 mt-4">投稿がありません</p>
   </div>
 </template>
+
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>
