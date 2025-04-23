@@ -59,10 +59,10 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
     <div class="relative w-full group">
       <!-- アートワーク画像 -->
       <img
-  :src="post.artwork"
-  alt="アートワーク"
-  :class="['rounded-xl shadow-md', isPlaying ? 'animate-pulse' : '']"
-/>
+        :src="post.artwork"
+        alt="アートワーク"
+        :class="['rounded-xl shadow-md', isPlaying ? 'animate-pulse' : '']"
+      />
 
       
       <!-- 試聴ボタン（左下にふわっと表示）-->

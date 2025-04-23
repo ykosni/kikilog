@@ -64,10 +64,13 @@ onMounted(() => {
 
     <div v-if="posts.length" class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
       <div
-        v-for="post in posts"
-        :key="post.id"
-        class="bg-gray-200 rounded-2xl shadow-md p-4 hover:shadow-lg transition-shadow duration-300"
-      >
+          v-for="post in posts"
+          :key="post.id"
+          :class="[
+            'rounded-2xl shadow-md p-4 hover:shadow-lg transition-shadow duration-300',
+            visiblePlayerId === post.id ? 'scale-[1.01] bg-white' : 'bg-gray-200'
+          ]"
+        >
         <!--アートワークの中に試聴ボタン-->
         <div class="relative group">
           <img
@@ -79,7 +82,7 @@ onMounted(() => {
             @click="togglePlayer(post)"
             class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-8 h-8 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
           >
-            <p class="text-black">▶</p>
+            <p class="text-black"><Headphones :stroke-width="3"/></p>
           </button>
         </div>
         
@@ -107,14 +110,16 @@ onMounted(() => {
           <span class="text-xs text-gray-400">{{ formatDate(post.createdAt) }}</span>
         </div>
         
+
+
+      </div>
+      　<!--画面下部に試聴プレイヤー-->
         <div>
           <BottomPlayer
             :spotify-url="currentSpotifyUrl"
             :visible="!!currentSpotifyUrl"
           />
         </div>
-
-      </div>
     </div>
 
     <p v-else class="text-gray-300 mt-4">投稿がありません</p>
