@@ -16,6 +16,11 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  currentTrackId: {
+    type: String,
+    required: true,
+  },
+  
 });
 
 // （デバッグ） ここで post の中身を確認！
@@ -29,28 +34,43 @@ const formattedDate = computed(() => {
 //ログインユーザー
 const currentUser = inject('currentUser');
 
-//
+//emitする
 const emit = defineEmits(['toggle-player']);
 const togglePlayer = () => {
   emit('toggle-player', props.post);
 };
+
+//自分が再生中か？を判定
+const isPlaying = computed(() => props.post.id === props.currentTrackId);
+
 
 
 </script>
 
 
 <template>
-  <div class="bg-gray-200 rounded-2xl shadow-md p-8 hover:shadow-lg transition-shadow duration-300">
+  <div
+    :class="[
+      'rounded-2xl shadow-md p-8 hover:shadow-lg transition-shadow duration-300',
+      isPlaying ? 'scale-[1.01] bg-white' : 'bg-gray-200'
+    ]"
+  >
     
     <div class="relative w-full group">
       <!-- アートワーク画像 -->
-        <img :src="post.artwork" alt="アートワーク" class="rounded-xl shadow-md" />
+      <img
+  :src="post.artwork"
+  alt="アートワーク"
+  :class="['rounded-xl shadow-md', isPlaying ? 'animate-pulse' : '']"
+/>
+
+      
       <!-- 試聴ボタン（左下にふわっと表示）-->
         <button
           @click="togglePlayer"
           class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
         >
-          <p class="text-black">▶</p>
+          <p class="text-black"><Headphones :stroke-width="3"/></p>
         </button>
     </div>
 

@@ -89,6 +89,7 @@ fetchData();
       :key="post.id"
       :post="post"
       :currentUser="currentUser"
+      :currentTrackId="currentTrack?.id"
       @toggle-player="handleTogglePlayer"
       />
     </div>
