@@ -29,24 +29,11 @@ const formattedDate = computed(() => {
 //ログインユーザー
 const currentUser = inject('currentUser');
 
-//視聴用プレイヤー
-const isPlayerVisible = ref(false);
+//
+const emit = defineEmits(['toggle-player']);
 const togglePlayer = () => {
-  isPlayerVisible.value = !isPlayerVisible.value
-}
-const spotifyEmbedUrl = computed(() => {
-  if (!props.post || !props.post.spotifyUrl) return ''
-
-// URLからtrackIdだけ取り出す
-const match = props.post.spotifyUrl.match(/track\/([a-zA-Z0-9]+)/)
-const trackId = match ? match[1] : null
-
-if (!trackId) return ''
-
-const url = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`
-console.log('Spotify URL:', url)
-return url
-})
+  emit('toggle-player', props.post);
+};
 
 
 </script>
@@ -61,8 +48,7 @@ return url
       <!-- 試聴ボタン（左下にふわっと表示）-->
         <button
           @click="togglePlayer"
-          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center
-                 transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
+          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
         >
           <p class="text-black">▶</p>
         </button>
@@ -93,21 +79,6 @@ return url
       <LikeButton :postId="post.id" :userId="currentUser.uid" />
       <span class="text-xs text-gray-400">投稿日時：{{ formattedDate }}</span>
     </div>
-    
-    <!-- プレイヤー表示（フェードイン付き） -->
-    <transition name="fade">
-      <iframe
-        v-if="isPlayerVisible"
-        :src="spotifyEmbedUrl"
-        width="100%"
-        height="80"
-        frameborder="0"
-        allowtransparency="true"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        class="mt-2 rounded-xl"
-      ></iframe>
-    </transition>
 
   </div>
 </template>

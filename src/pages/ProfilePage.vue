@@ -5,6 +5,8 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
 import { formatDate } from '../utils/date'
 import LikeButton from '../components/LikeButton.vue';
 import ExpandableComment from '../components/ExpandableComment.vue'
+import BottomPlayer from '../components/BottomPlayer.vue';
+
 
 
 const db = inject('db');
@@ -14,17 +16,21 @@ const posts = ref([]);
 
 //試聴ボタン
 const visiblePlayerId = ref(null);
+const currentSpotifyUrl = ref(null); //再生中の曲のURLを保持する
+
 
 //トグルで、同時に複数再生されないようにする
-const togglePlayer = (postId) => {
-  if (visiblePlayerId.value === postId) {
+const togglePlayer = (post) => {
+  if (visiblePlayerId.value === post.id) {
       // 今開いてるプレイヤーを閉じる（同じIDが2回押されたから）
-      visiblePlayerId.value = null
+      visiblePlayerId.value = null;
+      currentSpotifyUrl.value = null;
     } else {
       // 押された投稿IDを再生対象にする（別の投稿を再生したいとき）
-      visiblePlayerId.value = postId
+      visiblePlayerId.value = post.id;
+      currentSpotifyUrl.value = post.spotifyUrl;
     }
-}
+};
 
 //自分の投稿を取得
 const fetchUserPosts = async () => {
@@ -70,7 +76,7 @@ onMounted(() => {
             class="rounded-xl object-cover aspect-square w-full mb-3"
           />
           <button
-            @click="togglePlayer(post.id)"
+            @click="togglePlayer(post)"
             class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-8 h-8 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
           >
             <p class="text-black">▶</p>
@@ -102,16 +108,10 @@ onMounted(() => {
         </div>
         
         <div>
-          <transition name="fade">
-            <iframe
-              v-if="visiblePlayerId === post.id"
-              class="mt-3 w-full h-20 rounded-lg"
-              :src="`${post.spotifyUrl.replace('track/', 'embed/track/')}?utm_source=generator&autoplay=1`"
-              frameborder="0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </transition>
+          <BottomPlayer
+            :spotify-url="currentSpotifyUrl"
+            :visible="!!currentSpotifyUrl"
+          />
         </div>
 
       </div>

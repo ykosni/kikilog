@@ -1,7 +1,9 @@
 <script setup>
-import { ref, onMounted, inject } from 'vue';
+import { ref, onMounted, inject, computed } from 'vue';
 import { getDocs, collection, query, orderBy, startAfter, limit } from 'firebase/firestore';
 import PostCard from '../components/PostCard.vue';
+import BottomPlayer from '../components/BottomPlayer.vue';
+
 
 //ログイン状態
 const currentUser = inject('currentUser');
@@ -52,6 +54,23 @@ const fetchData = async () => {
   loading.value = false;
 }
 
+
+
+// プレイヤー制御
+const currentTrack = ref(null);
+const handleTogglePlayer = (post) => {
+  if (currentTrack.value && currentTrack.value.id === post.id) {
+    currentTrack.value = null;
+  } else {
+    currentTrack.value = post;
+  }
+};
+
+// 🎧 プレイヤーに渡す spotifyUrl
+const currentSpotifyUrl = computed(() => currentTrack.value?.spotifyUrl || '');
+
+
+
 //ページ表示時に読み込み
 fetchData();
 
@@ -70,8 +89,15 @@ fetchData();
       :key="post.id"
       :post="post"
       :currentUser="currentUser"
+      @toggle-player="handleTogglePlayer"
       />
     </div>
+    
+   <BottomPlayer
+      :spotify-url="currentSpotifyUrl"
+      :visible="!!currentTrack"
+    />
+    
 
 <!-- ５件以上データがあれば「もっと見る」 -->
     <template v-if="!reachedEnd">
