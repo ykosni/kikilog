@@ -76,7 +76,7 @@ onMounted(() => {
           <img
             :src="post.artwork"
             alt="アートワーク"
-            class="rounded-xl object-cover aspect-square w-full mb-3"
+            :class="['rounded-xl shadow-md', visiblePlayerId === post.id ? 'animate-pulse' : '']"
           />
           <button
             @click="togglePlayer(post)"
