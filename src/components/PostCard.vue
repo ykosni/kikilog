@@ -68,7 +68,7 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
       <!-- 試聴ボタン（右下に表示。PCのみホバー表示。）-->
         <button
           @click="togglePlayer"
-          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 ease-out active:scale-95 hover:scale-110 shadow-md opacity-100 sm:opacity-0 md:group-hover:opacity-100"
+          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 ease-out active:scale-95 hover:scale-110 shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
         >
           <p class="text-black"><Headphones :stroke-width="3"/></p>
         </button>
@@ -97,7 +97,7 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
     
     <div class="flex justify-between items-center mt-4">
       <LikeButton :postId="post.id" :userId="currentUser.uid" />
-      <span class="text-xs text-gray-400">投稿日時：{{ formattedDate }}</span>
+      <p class="text-xs text-gray-400">投稿日時：{{ formattedDate }}</p>
     </div>
 
   </div>

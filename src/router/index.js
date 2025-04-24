@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage.vue'
 import RegisterPage from '../pages/RegisterPage.vue'
 import NewPostPage from '../pages/NewPostPage.vue'
 import ProfilePage from '../pages/ProfilePage.vue'
+import PostDetail from '../pages/PostDetail.vue'
 
 
 
@@ -14,6 +15,7 @@ const routes = [
   { path: '/register', component: RegisterPage },
   { path: '/new', component: NewPostPage },
   { path: '/profile', component: ProfilePage },
+  { path: '/posts/:id', component: PostDetail },
 ]
 
 const router = createRouter({

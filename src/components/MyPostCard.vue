@@ -4,7 +4,7 @@ import { formatDate } from '../utils/date'; //日付を文字列にする共通�
 import LikeButton from './LikeButton.vue';
 import { ref } from 'vue';
 import ExpandableComment from './ExpandableComment.vue';
-
+import { useRouter } from 'vue-router';
 
 //HomePage.vue（親）からデータを受け取る準備
 const props = defineProps({
@@ -40,13 +40,18 @@ const togglePlayer = () => {
 //自分が再生中か？を判定
 const isPlaying = computed(() => props.post.id === props.currentTrackId);
 
-
+//PostDetailに移動する為のルーティング
+const router = useRouter();
+const goToDetail = () => {
+  router.push(`/posts/${props.post.id}`)
+};
 
 </script>
 
 
 <template>
   <div
+    @click="goToDetail"
     :class="[
       'rounded-2xl shadow-md p-4 lg:p-6 hover:shadow-lg transition-shadow duration-300',
       isPlaying ? 'scale-[1.01] bg-white' : 'bg-gray-200'
@@ -64,8 +69,8 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
       
       <!-- 試聴ボタン（左下にふわっと表示）-->
         <button
-          @click="togglePlayer"
-          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md ease-out active:scale-95 hover:scale-110 opacity-100 sm:opacity-0 md:group-hover:opacity-100"
+          @click.stop="togglePlayer"
+          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md ease-out active:scale-95 hover:scale-110 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
         >
           <p class="text-black"><Headphones :stroke-width="3"/></p>
         </button>
@@ -83,7 +88,7 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
     
     <!--<div class="flex justify-between items-center">-->
     <!--  <LikeButton :postId="post.id" :userId="currentUser.uid" />-->
-    <!--  <span class="text-xs text-gray-400">{{ formattedDate }}</span>-->
+    <!--  <p class="text-xs text-gray-400">{{ formattedDate }}</p>-->
     <!--</div>-->
 
   </div>
