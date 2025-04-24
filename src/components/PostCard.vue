@@ -65,10 +65,10 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
       />
 
       
-      <!-- 試聴ボタン（左下にふわっと表示）-->
+      <!-- 試聴ボタン（右下に表示。PCのみホバー表示。）-->
         <button
           @click="togglePlayer"
-          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
+          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 ease-out active:scale-95 hover:scale-110 shadow-md opacity-100 sm:opacity-0 md:group-hover:opacity-100"
         >
           <p class="text-black"><Headphones :stroke-width="3"/></p>
         </button>

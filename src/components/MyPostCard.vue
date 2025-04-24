@@ -65,7 +65,7 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
       <!-- 試聴ボタン（左下にふわっと表示）-->
         <button
           @click="togglePlayer"
-          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100"
+          class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 shadow-md ease-out active:scale-95 hover:scale-110 opacity-100 sm:opacity-0 md:group-hover:opacity-100"
         >
           <p class="text-black"><Headphones :stroke-width="3"/></p>
         </button>
@@ -76,15 +76,15 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
     <p class="text-sm lg:text-xl text-center font-black text-gray-800 mb-1 lg:mb-4">{{ post.track || 'タイトル不明' }}</p>
     
     
-    <p class="text-sm lg:text-base text-gray-800 font-bold mb-1 lg:mb-4 flex items-center gap-2">
-      <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
-      {{ post.artist || 'なし' }}
-    </p>
+    <!--<p class="text-sm lg:text-base text-gray-800 font-bold mb-1 lg:mb-4 flex items-center gap-2">-->
+    <!--  <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>-->
+    <!--  {{ post.artist || 'なし' }}-->
+    <!--</p>-->
     
-    <div class="flex justify-between items-center">
-      <LikeButton :postId="post.id" :userId="currentUser.uid" />
-      <span class="text-xs text-gray-400">{{ formattedDate }}</span>
-    </div>
+    <!--<div class="flex justify-between items-center">-->
+    <!--  <LikeButton :postId="post.id" :userId="currentUser.uid" />-->
+    <!--  <span class="text-xs text-gray-400">{{ formattedDate }}</span>-->
+    <!--</div>-->
 
   </div>
 </template>

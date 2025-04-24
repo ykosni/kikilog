@@ -56,7 +56,7 @@ onMounted(() => {
 
 <template>
   <div class="p-2">
-    <h2 class="text-2xl font-black mb-4">My 聴きログ</h2>
+    <h2 class="text-[#1ed760] text-2xl font-black mb-4">My 聴きログ</h2>
 
     <div v-if="posts.length" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
       <MyPostCard

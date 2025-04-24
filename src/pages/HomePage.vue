@@ -81,7 +81,7 @@ fetchData();
 <template>
   
   <div class="p-2">
-    <h2 class="text-2xl font-black mb-4">Discover your favorites!</h2>
+    <h2 class="text-[#1ed760] text-2xl font-black mb-4">Discover your favorites!</h2>
 
     
     <div v-if="posts.length > 0 && currentUser"
