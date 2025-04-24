@@ -3,7 +3,7 @@
 import { inject, ref, onMounted, computed } from 'vue'
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
 import BottomPlayer from '../components/BottomPlayer.vue';
-import PostCard from '../components/PostCard.vue';
+import MyPostCard from '../components/MyPostCard.vue';
 
 
 const db = inject('db');
@@ -58,8 +58,8 @@ onMounted(() => {
   <div class="p-2">
     <h2 class="text-2xl font-black mb-4">My 聴きログ</h2>
 
-    <div v-if="posts.length" class="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
-      <PostCard
+    <div v-if="posts.length" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+      <MyPostCard
         v-for="post in posts"
         :key="post.id"
         :post="post"
