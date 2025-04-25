@@ -51,7 +51,7 @@ const deletePost = async () => {
     alert('投稿を削除しました')
     router.push('/profile')
   } catch (error) {
-    console.log('削除に失敗しました', error)
+    console.error('削除に失敗しました', error)
     alert('削除に失敗しました')
   }
 }
@@ -65,41 +65,49 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl sm:p-10 p-6">
+  <div class="bg-white rounded-2xl sm:p-10 p-6 mb-10">
+    
+    <div class="flex items-center justify-between pb-8 text-[#1ed760]">
+      <RouterLink to="/profile">
+          <ArrowLeft class="w-10 h-10 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" />
+      </RouterLink>
+      <p class="font-black sm:text-3xl text-2xl items-center">投稿詳細</p>
+      <button @click="deletePost">
+        <Trash2 class="w-10 h-10 transition-transform duration-200 ease-out active:scale-95 hover:scale-110" :stroke-width="3" />
+      </button>
+    </div>
+    
     <div v-if="post"
-         class="flex flex-col sm:flex-row items-center justify-center text-center gap-8"
+         class="flex flex-col sm:flex-row items-center justify-center text-center sm:gap-10"
     >
-      <div>
-        <img :src="post.artwork" alt="アートワーク" class="w-full max-w-md rounded-xl sm:my-10 shadow-lg" />
+      <div class="pb-4">
+        <img :src="post.artwork" alt="アートワーク" class="w-full lg:max-w-4xl max-w-md rounded-xl shadow-lg" />
       </div>
   
-      <div>
-        <p class="text-xl sm:text-left text-center font-black text-gray-800 mb-4">{{ post.track || 'タイトル不明' }}</p>
-        <p class="text-gray-800 font-bold mb-2 flex items-start gap-2">
-          <UserRound class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
+      <div class="w-full">
+        <p class="sm:py-10 py-2 lg:text-5xl md:text-3xl text-2xl sm:text-left text-center font-black text-gray-800">{{ post.track || 'タイトル不明' }}</p>
+        <p class="sm:pb-4 text-gray-800 sm:text-3xl text-xl font-bold flex items-start gap-2">
+          <UserRound class="sm:w-10 sm:h-10 w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
           {{ post.artist || 'なし' }}
         </p>
-        <p class="text-gray-600 mb-2 flex items-start gap-2">
-          <Disc3 class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
+        <p class="sm:pb-4 text-gray-600 sm:text-2xl text-xl flex items-start gap-2">
+          <Disc3 class="sm:w-10 sm:h-10 w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
           {{ post.album  || 'なし' }} 
         </p>
-        <p class="text-gray-600 mb-2 flex items-start gap-2">
-          <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
+        <p class="sm:text-sm text-xs text-gray-600 flex items-start gap-2">
+          <MessageCircleMore class="sm:w-10 sm:h-10 w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
           {{ post.comment || 'なし' }}
         </p>
-        <div class="flex justify-between items-center mt-4">
+        <div class="flex w-full justify-between items-center mt-4">
           <LikeButton :postId="post.id" :userId="currentUser.uid" />
-          <p class="text-xs text-gray-400">投稿日時：{{ formattedDate || '不明' }}</p>
+          <p class="sm:text-sm text-xs text-gray-400">投稿日時：{{ formattedDate || '不明' }}</p>
         </div>
       </div>  
     </div>
     
     <p v-else>読み込み中...</p>
+    
 
-    <button @click="deletePost"
-            class="px-4 py-2 bg-red-400 hover:bg-red-600 transition text-white font-bold rounded-xl">
-      削除
-    </button>
     
   </div>
 </template>

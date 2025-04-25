@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-[#121212] text-gray-100 px-4 py-8 flex justify-center">
     <div class="w-full max-w-xl bg-[#1a1a1a] p-6 rounded-2xl shadow-md">
-      <h2 class="text-2xl font-black text-[#1ed760] mb-6 text-center">新規投稿</h2>
+      <h2 class="text-3xl font-black text-[#1ed760] mb-6 text-center">新規投稿</h2>
 
       <form @submit.prevent="submitPost" class="space-y-6">
         <div>
