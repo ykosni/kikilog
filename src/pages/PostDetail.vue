@@ -94,7 +94,7 @@ onMounted(() => {
           <Disc3 class="sm:w-10 sm:h-10 w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
           {{ post.album  || 'なし' }} 
         </p>
-        <p class="sm:text-sm text-xs text-gray-600 flex items-start gap-2">
+        <p class="whitespace-pre-wrap sm:text-sm text-xs text-gray-600 flex items-start gap-2">
           <MessageCircleMore class="sm:w-10 sm:h-10 w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/>
           {{ post.comment || 'なし' }}
         </p>

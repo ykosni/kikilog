@@ -23,19 +23,19 @@ const fetchData = async () => {
 
   let q;
   if (lastVisible.value) {
-    // 追加で５件取得（「もっと見る」）
+    // 追加で6件取得（「もっと見る」）
     q = query(
       collection(db, "posts"),
       orderBy("createdAt", "desc"),
       startAfter(lastVisible.value),
-      limit(5)
+      limit(6)
     );
   } else {
-    // 最初の5件を取得
+    // 最初の6件を取得
     q = query(
       collection(db, "posts"),
       orderBy("createdAt", "desc"),
-      limit(5)
+      limit(6)
     );
   }
 
@@ -47,7 +47,7 @@ const fetchData = async () => {
   posts.value = [...posts.value, ...newPosts];  //もとの配列に新しい配列を追加する（「もっと見る」）
 
   //データを全て表示したら、「もっと見る」ボタンを非表示にする
-  if (snapshot.empty || snapshot.docs.length < 5) {
+  if (snapshot.empty || snapshot.docs.length < 6) {
     reachedEnd.value = true; // データが空orlimitより少ない（終わり）なら、もう取得しない
   }
   lastVisible.value = snapshot.docs[snapshot.docs.length - 1];
@@ -101,7 +101,7 @@ fetchData();
     />
     
 
-<!-- ５件以上データがあれば「もっと見る」 -->
+<!-- 6件以上データがあれば「もっと見る」 -->
     <template v-if="!reachedEnd">
       <div class="flex justify-center my-6">
         <button

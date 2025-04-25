@@ -23,7 +23,9 @@ const toggleExpand = () => {
 
 <template>
   <div class="text-sm text-gray-600">
-    {{ shortComment }}
+    <p class="whitespace-pre-wrap">
+      {{ shortComment }}
+    </p>
     <button
       v-if="props.comment.length > 15"
       @click="toggleExpand"

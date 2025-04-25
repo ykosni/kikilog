@@ -12,12 +12,15 @@ const { currentUID } = storeToRefs(authStore);
 </script>
 
 <template>
-  <header class="flex justify-between items-center p-2">
+  <header class="flex sm:justify-between justify-center items-center p-2">
     <RouterLink to="/">
-      <h1 class="text-4xl font-black flex items-center gap-2 transition-transform duration-200 ease-out active:scale-95" style="color: #1ed760;">
-        <Headphones class="w-9 h-9" :stroke-width="4" />聴きログ
-      </h1>
+      <img
+        src="/images/kikilog_top.png"
+        alt="聴きログ"
+        class="sm:h-[150px] h-[100px] transition-transform duration-200 ease-out active:scale-95"
+      />
     </RouterLink>
+
 
     <!-- ログインしている時だけを表示 -->
     <div v-if="currentUID" class="flex justify-between items-center hidden sm:flex">

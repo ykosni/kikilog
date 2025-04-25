@@ -59,11 +59,16 @@ onMounted(() => {
     <!-- スプラッシュ画面 -->
     <div
       v-if="showSplash"
-      class="fixed inset-0 z-50 bg-black flex items-center justify-center transition-opacity duration-1000"
+      class="fixed inset-0 z-50 bg-[#121212] flex items-center justify-center transition-opacity duration-1000"
       :class="{ 'opacity-0': fadeOut }"
     >
-      <h1 class="text-7xl flex items-center gap-5 font-black text-[#1ed760] animate-fade-in">
-        <Headphones class="w-20 h-20" :stroke-width="4" />聴きログ
+      <h1 class="flex items-center animate-fade-in">
+        <img
+        src="/images/kikilog_splash.png"
+        alt="聴きログ"
+        class="sm:h-[300px] h-[200px]"
+      />
+        
       </h1>
     </div>
     

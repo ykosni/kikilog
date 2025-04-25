@@ -44,8 +44,9 @@
           <label class="text-gray-100 text-lg mb-4 font-bold flex items-center gap-2">
             <MessageCircleMore class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> コメント
           </label>
-          <textarea v-model="comment" rows="4" placeholder="曲の解説、聴きどころ、好きな歌詞、等"
+          <textarea v-model="comment" rows="4" maxlength="500" placeholder="曲の解説、聴きどころ、好きな歌詞、等"
             class="w-full bg-[#2a2a2a] border border-[#4a4a4a] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1ed760] resize-none"></textarea>
+            <p class="text-sm text-right text-gray-400 mt-1">{{ comment.length }}/500</p>
         </div>
 
         <div class="text-center">
@@ -82,7 +83,11 @@ const authStore = useAuthStore();
 const submitPost = async() => {
   try {
   
+    const confirmed = confirm('この内容で投稿しますか？');
+    if (!confirmed) return;
+  
     if (!trackInfo.value) {
+      alert('トラック情報が取得されていません');
       console.error('トラック情報が取得されていません');
       return;
     }
@@ -174,6 +179,7 @@ async function handleSpotifyRequest() {
   extractTrackId();
   if (!trackId.value) {
     console.error('トラックIDが取得できませんでした');
+    alert('トラック情報が取得できませんでした');
     return;
   }
   await getTrackInfo(trackId.value);
