@@ -12,21 +12,22 @@
 
 <script setup>
 import { inject, ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { doc, getDoc } from 'firebase/firestore'
+import { useRoute, useRouter } from 'vue-router'
+import { doc, getDoc, deleteDoc } from 'firebase/firestore'
 import { formatDate } from '../utils/date'; //日付を文字列にする共通関数
 import LikeButton from '../components/LikeButton.vue';
 
-const db = inject('db')
-const route = useRoute()
-const post = ref(null)
+const db = inject('db');
+const route = useRoute();
+const post = ref(null);
+const router = useRouter();
 
 //ログインユーザー
 const currentUser = inject('currentUser');
 
 const fetchPost = async () => {
-  const docRef = doc(db, 'posts', route.params.id)
-  const docSnap = await getDoc(docRef)
+  const docRef = doc(db, 'posts', route.params.id);
+  const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
     post.value = { id: docSnap.id, ...docSnap.data() }
@@ -39,6 +40,24 @@ const fetchPost = async () => {
 const formattedDate = computed(() => {
   return formatDate(post.value.createdAt);
 });
+
+//投稿の削除機能
+const deletePost = async () => {
+  const confirmed = confirm('この投稿を削除しますか？');
+  if (!confirmed) return
+  
+  try{
+    await deleteDoc(doc(db, 'posts', post.value.id))
+    alert('投稿を削除しました')
+    router.push('/profile')
+  } catch (error) {
+    console.log('削除に失敗しました', error)
+    alert('削除に失敗しました')
+  }
+}
+
+
+
 
 onMounted(() => {
   fetchPost()
@@ -76,5 +95,11 @@ onMounted(() => {
     </div>
     
     <p v-else>読み込み中...</p>
+
+    <button @click="deletePost"
+            class="px-4 py-2 bg-red-400 hover:bg-red-600 transition text-white font-bold rounded-xl">
+      削除
+    </button>
+    
   </div>
 </template>
