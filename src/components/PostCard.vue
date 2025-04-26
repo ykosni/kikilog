@@ -70,7 +70,18 @@ const isPlaying = computed(() => props.post.id === props.currentTrackId);
           @click="togglePlayer"
           class="absolute bottom-4 right-4 bg-[#1ed760] hover:bg-[#1fdb69] rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 ease-out active:scale-95 hover:scale-110 shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
         >
-          <p class="text-black"><Headphones :stroke-width="3"/></p>
+          <p class="text-black">
+            <Pause
+              v-if="isPlaying"
+              class="w-6 h-6"
+              :stroke-width="3"
+            />
+            <Headphones
+              v-else
+              class="w-6 h-6"
+              :stroke-width="3"
+            />
+          </p>
         </button>
     </div>
 
