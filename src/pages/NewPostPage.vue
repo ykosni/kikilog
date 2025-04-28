@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#121212] text-gray-100 px-4 py-8 flex justify-center">
-    <div class="w-full max-w-xl bg-[#1a1a1a] p-6 rounded-2xl shadow-md">
+    <div class="w-full max-w-xl bg-[#1a1a1a] sm:p-6 p-2 rounded-2xl shadow-md">
       <h2 class="text-3xl font-black text-[#1ed760] mb-6 text-center">新規投稿</h2>
 
       <form @submit.prevent="submitPost" class="space-y-6">
@@ -23,11 +23,11 @@
         </div>
 
         <!--楽曲情報-->
-        <div v-if="trackInfo" class="bg-[#2a2a2a] p-4 rounded-lg text-sm sm:text-sm md:text-xl lg:text-xl flex w-full items-center">
-          <div class="w-1/3 p-4">
+        <div v-if="trackInfo" class="bg-[#2a2a2a] rounded-lg text-sm sm:text-sm md:text-xl lg:text-xl flex w-full items-center">
+          <div class="w-1/3 sm:p-4 p-2">
             <img :src="trackInfo.album.images[0].url" alt="アートワーク" class="rounded-xl" />
           </div>
-          <div class="w-2/3 p-4">
+          <div class="w-2/3 sm:p-4 p-2">
             <p class="text-gray-100 font-bold mb-4 flex items-center gap-2">
               <Music class="w-6 h-6 text-[#1ed760] shrink-0" :stroke-width="3"/> {{ trackInfo.name }}
             </p>          
