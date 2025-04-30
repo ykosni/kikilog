@@ -10,6 +10,9 @@
       <RouterLink to="/profile">
         <User class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 " :stroke-width="3" stroke="#1ed760"/>
       </RouterLink>
+      <RouterLink to="/about">
+        <CircleHelp class="w-7 h-7 transition-transform duration-200 ease-out active:scale-95 " :stroke-width="3" stroke="#1ed760"/>
+      </RouterLink>      
       <Logout />
   </footer>
   
