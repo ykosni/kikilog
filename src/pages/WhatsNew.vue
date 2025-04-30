@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:p-4 p-1 max-w-2xl mx-auto">
+  <div class="sm:p-4 p-1 mb-8 max-w-2xl mx-auto">
     <h1 class="text-2xl font-bold text-[#1ed760] mb-6 text-center">What's NEW</h1>
 
     <div class="space-y-4">
