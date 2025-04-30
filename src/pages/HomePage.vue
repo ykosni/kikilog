@@ -121,4 +121,7 @@ fetchData();
     
   </div>
   
+  <!--  下に余白を追加 -->
+  <div class="h-28 sm:h-32"></div>
+  
 </template>

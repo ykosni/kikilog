@@ -11,8 +11,8 @@ const props = defineProps({
 const isExpanded = ref(false)
 
 const shortComment = computed(() => {
-  return props.comment.length > 15 && !isExpanded.value
-    ? props.comment.slice(0, 15) + '…'
+  return props.comment.length > 35 && !isExpanded.value
+    ? props.comment.slice(0, 35) + '…'
     : props.comment
 })
 
@@ -27,7 +27,7 @@ const toggleExpand = () => {
       {{ shortComment }}
     </p>
     <button
-      v-if="props.comment.length > 15"
+      v-if="props.comment.length > 35"
       @click="toggleExpand"
       class="ml-2 text-gray-400 hover:underline text-xs"
     >
