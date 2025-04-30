@@ -97,17 +97,21 @@ onMounted(() => {
   
       <!--ログイン済で表示    -->
       <div v-else>
-        <p class="p-2 gap-1 flex justify-end items-center text-right text-gray-400">
-          <User class="w-5 h-5" :stroke-width="3" />
-          {{ userName }}
-        </p>
+        <div class="flex justify-between items-center px-4 py-2 text-gray-400">
+          <RouterLink to="/whatsnew" class="bg-[#1ed760] text-black text-sm font-semibold px-4 py-1 rounded-full shadow-md transition-transform duration-200 ease-out active:scale-95 hover:scale-105">更新情報</RouterLink>
+          
+          <div class="flex items-center gap-1">
+            <User class="w-5 h-5" :stroke-width="3" />
+            <p>{{ userName }}</p>
+          </div>
+        </div>
+
+        
         <router-view />
         
         <!--スマホの場合のみフッター表示-->
         <FooterNav :currentUID="authStore.currentUID" />
 
-        
-        
       </div>
     </div>
   </div>
